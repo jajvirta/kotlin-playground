@@ -1,5 +1,6 @@
 package fi.jajvirta.demo
 
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.web.bind.annotation.RequestMapping
@@ -16,12 +17,13 @@ data class Quote(val person: String, val text: String)
 
 @RestController
 @RequestMapping("/api/quotes")
-class QC {
+class QC(val testDao: TestDao) {
+
     val quotes = mutableSetOf(Quote("Jamppa", "yoo!"))
 
     @RequestMapping
     fun allQuotes() = quotes
 
     @RequestMapping("/foo")
-    fun foo() = "xxx"
+    fun foo() = testDao.helloworld()
 }
